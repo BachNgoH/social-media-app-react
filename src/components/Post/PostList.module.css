@@ -1,0 +1,13 @@
+.container{
+  display: flex;
+  align-self: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 15vh;
+}
+
+.container h1{
+  width: 100%;
+  text-align: center;
+}
+
