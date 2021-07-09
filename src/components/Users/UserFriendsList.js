@@ -97,7 +97,7 @@ const UserFriendsList = () => {
       })
     );
 
-  const requestListOutput = !requestsList ? (
+  const requestListOutput = (!requestsList || requestsList.length === 0) ? (
     <h2>No request</h2>
   ) : (
     requestsList.map((friend) => {

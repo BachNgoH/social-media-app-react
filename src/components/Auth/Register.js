@@ -12,11 +12,10 @@ const Register = (props) => {
   const passwordInputRef = useRef();
   const repeatPasswordInputRef = useRef();
 
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [emailHasError, setEmailHasError] = useState(false);
   const [passwordIsInValid, setPasswordIsInValid] = useState(false);
   const [thisPasswordInvalid, setThisPasswordInvalid] = useState(false);
-
 
   function validateEmail(email) {
     const re =
@@ -32,7 +31,6 @@ const Register = (props) => {
     const enteredRepeatPassword = repeatPasswordInputRef.current.value;
     const enteredFirstName = firstNameInputRef.current.value;
     const enteredLastName = lastNameInputRef.current.value;
-
 
     if (!validateEmail(enteredEmail)) {
       setEmailHasError(true);
@@ -59,10 +57,8 @@ const Register = (props) => {
       alert("invalid input");
       return;
     } else {
-      console.log(emailHasError || passwordIsInValid);
-
       setIsLoading(true);
-      await fetch(url+"api/v1/registration", {
+      await fetch(url + "api/v1/registration", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -91,14 +87,12 @@ const Register = (props) => {
             });
           }
         })
-
         .catch((err) => {
           setIsLoading(false);
-          alert(err);
+          alert("failed! " + err.message);
         });
     }
   };
-
 
   return (
     <form onSubmit={submitHandler}>
@@ -109,13 +103,7 @@ const Register = (props) => {
       <input type="text" id="firstname" ref={lastNameInputRef} required></input>
 
       <label>email</label>
-      <input
-        type="text"
-        id="email"
-        ref={emailInputRef}
-        required
-
-      />
+      <input type="text" id="email" ref={emailInputRef} required />
       {emailHasError && (
         <p style={{ color: "crimson" }}>Please enter a valid email</p>
       )}
@@ -124,33 +112,32 @@ const Register = (props) => {
         type="password"
         id="password"
         ref={passwordInputRef}
-
         required
       ></input>
-      {thisPasswordInvalid  && (
+      {thisPasswordInvalid && (
         <p style={{ color: "crimson" }}>
           password must have more than than 6 character
         </p>
       )}
       <label htmlFor="repeatPassword">repeat password</label>
       <input
-        
         type="password"
         id="repeatPassword"
         ref={repeatPasswordInputRef}
         required
       ></input>
       {passwordIsInValid && (
-        <p style={{ color: "crimson" }}>
-          repeat password must be the same
-        </p>
+        <p style={{ color: "crimson" }}>repeat password must be the same</p>
       )}
-      <div className={classes["btn-container"]}>
-        <Button onClick={props.switchHandler} className={classes.button}>
-          Login
-        </Button>
-        <Button className={classes.button}>Submit</Button>
-      </div>
+      {!isLoading && (
+        <div className={classes["btn-container"]}>
+          <Button onClick={props.switchHandler} className={classes.button}>
+            Login
+          </Button>
+          <Button className={classes.button}>Submit </Button>
+        </div>
+      )}
+      {isLoading && <p>Sending request...</p>}
     </form>
   );
 };

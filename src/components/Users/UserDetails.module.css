@@ -5,7 +5,12 @@
   flex-wrap: wrap;
   justify-content: center;
   z-index: -20;
+}
 
+.body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .background {
@@ -52,8 +57,9 @@
   flex-wrap: wrap;
   list-style: none;
   padding-left: 0;
-  width: 100%;
+  width: 80%;
   justify-content: center;
+  flex-direction: column;
 }
 
 .name {

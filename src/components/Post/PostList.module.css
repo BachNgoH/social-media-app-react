@@ -1,13 +1,12 @@
-.container{
+.container {
+  width: 60%;
   display: flex;
-  align-self: center;
-  flex-wrap: wrap;
   justify-content: center;
-  margin-top: 15vh;
 }
 
-.container h1{
+.card {
   width: 100%;
-  text-align: center;
+  list-style: none;
+  padding: 0;
+  justify-content: center;
 }
-

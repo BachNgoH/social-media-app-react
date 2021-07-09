@@ -15,7 +15,7 @@ const PostList = (props) => {
 
     const fetchData = async () => {
       setIsLoading(true);
-      const response = await fetch(url+"api/posts", {
+      const response = await fetch(url + "api/posts/news-feed", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +55,7 @@ const PostList = (props) => {
     }
     
     return (
-      <li key={post.postId}>
+      <li key={post.postId} >
         <PostItem
           id={post.postId}
           username={`${post.userFirstName} ${post.userLastName}`}
@@ -72,8 +72,7 @@ const PostList = (props) => {
 
   return (
     <div className={classes.container}>
-      <h1>News Feed</h1>
-      {!hasError && !isLoading&& <ul style={{ listStyle: "none" }}>{postList}</ul>}
+      {!hasError && !isLoading&& <ul className={classes.card}>{postList}</ul>}
       {hasError && <h1>Something went wrong</h1>}
       {isLoading && <h2>Loading...</h2>}
     </div>

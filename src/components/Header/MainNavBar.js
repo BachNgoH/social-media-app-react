@@ -28,10 +28,10 @@ const MainNavBar = () => {
   const onShowUserDetailHandler = () => {
     if (location.pathname === "/main") {
       history.push(`/details/${authCtx.userId}`);
-      setPage("Main");
+      setPage("main");
     } else {
       history.push("/main");
-      setPage("Details");
+      setPage("details");
     }
     setOpenInfo(false);
   };

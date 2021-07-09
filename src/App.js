@@ -4,6 +4,8 @@ import Header from "./components/Header/Header";
 import MainNavBar from "./components/Header/MainNavBar";
 import AuthContext from "./store/auth";
 import React, { Suspense } from "react";
+import MainPage from "./components/Pages/MainPage";
+import Chat from "./components/Chat/Chat";
 
 const PostList = React.lazy(() => import("./components/Post/PostList"));
 const Form = React.lazy(() => import("./components/Auth/Form"));
@@ -23,17 +25,24 @@ const App = () => {
   const history = useHistory();
   return (
     <Fragment>
-      <Suspense fallback={<div className="centered"><h2>Loading...</h2></div>}>
+      <Suspense
+        fallback={
+          <div className="centered">
+            <h2>Loading...</h2>
+          </div>
+        }
+      >
         <Switch>
           <Route path="/" exact>
-            <Redirect to="/main" />
+            {authCtx.isLoggedIn && <Redirect to="/main" />}
+            {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           {authCtx.isLoggedIn ? (
             <Route path="/main">
               <Header>
                 <MainNavBar></MainNavBar>
               </Header>
-              <PostList />
+              <MainPage />
             </Route>
           ) : (
             history.replace("/login")
@@ -61,7 +70,14 @@ const App = () => {
             </Header>
             <UserFriendsList />
           </Route>
+          <Route path="/chat">
+            <Header>
+              <MainNavBar></MainNavBar>
+            </Header>
+            <Chat/>
+          </Route>
           <Route>
+            <Header></Header>
             <p>PAGE NOT FOUND</p>
           </Route>
         </Switch>

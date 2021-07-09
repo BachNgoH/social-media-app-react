@@ -29,7 +29,7 @@ const ModalNav = (props) => {
 
   const [userData, setUserData] = useState({
     firstName: "",
-    lastName: ""
+    lastName: "",
   });
 
   useEffect(async () => {
@@ -37,18 +37,15 @@ const ModalNav = (props) => {
     //console.log(authCtx.userId);
     //console.log(authCtx.token);
     const fetchData = async () => {
-      const response = await fetch(
-        `${url}api/users/${authCtx.userId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "http://localhost:3000/",
-            "Access-Control-Allow-Credentials": "true",
-            "Authorization": `Bearer ${authToken}`,
-          },
-        }
-      );
+      const response = await fetch(`${url}api/users/${authCtx.userId}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "http://localhost:3000/",
+          "Access-Control-Allow-Credentials": "true",
+          Authorization: `Bearer ${authToken}`,
+        },
+      });
       if (!response.ok) {
         throw new Error("Could not fetch data!");
       }
@@ -72,7 +69,10 @@ const ModalNav = (props) => {
 
   //console.log(userData);
   const username = `${userData.firstName}  ${userData.lastName}`;
-  const avatar = `${userData.firstName.substring(0,1)} ${userData.lastName.substring(0,1)}`
+  const avatar = `${userData.firstName.substring(
+    0,
+    1
+  )} ${userData.lastName.substring(0, 1)}`;
 
   if (hasError) {
     return (
@@ -92,8 +92,13 @@ const ModalNav = (props) => {
 
   const toFriendPageHandler = () => {
     props.onCloseInfoHandler();
-    history.push("/friends")
-  }
+    history.push("/friends");
+  };
+
+  const toChatPageHandler = () => {
+    props.onCloseInfoHandler();
+    history.push("/chat");
+  };
 
   return (
     <Modal onClose={props.onCloseInfoHandler}>
@@ -127,11 +132,11 @@ const ModalNav = (props) => {
             <p>Find New Friends!!</p>
           </div>
           <hr></hr>
-          <div className={classes2.container}>
+          <div className={classes2.container} onClick={toChatPageHandler}>
             <div className={classes2.icon}>
               <FontAwesomeIcon icon={faCommentAlt} />
             </div>
-            <p>Text your friends now!! (Comming Soon)</p>
+            <p>Text your friends now!!</p>
           </div>
           <hr></hr>
         </div>

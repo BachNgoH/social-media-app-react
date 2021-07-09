@@ -23,8 +23,15 @@ const SearchedUserList = () => {
   useEffect(async () => {
     setIsLoading(true);
     const fetchUser = async () => {
+
+      let link;
+      if(!inputName || inputName.trim().length === 0){
+        link = url+"api/users"
+      }else{
+        link = url + "api/users/find/" + inputName;
+      }
       const response = await fetch(
-        url+"api/users/find/" + inputName,
+        link,
         {
           method: "GET",
           headers: {

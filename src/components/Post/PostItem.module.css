@@ -1,17 +1,24 @@
-.header, 
-.footer{
+.header,
+.footer {
   margin: 0;
-  width: 500px;
+  width: 100%;
   display: flex;
   justify-content: right;
   align-items: center;
   flex-direction: row;
   background-color: var(--mainTeaGreen);
-  
 }
 
-.logo{
-  
+.card {
+  width: 100%;
+  padding: 0;
+  justify-content: center;
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+
+.logo {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,30 +30,29 @@
   border-radius: 50%;
   background-color: var(--mainGreen);
   margin: 10px;
-  
 }
 
-.user{
+.user {
   font-size: 1.5rem;
   margin: 1rem;
 }
 
-.footer{
+.footer {
   flex-grow: 1;
   justify-content: space-between;
 }
 
-.icon{
+.icon {
   width: 50px;
   height: 20px;
   margin: 10px;
 }
-.content{
+.content {
   min-height: 150px;
   padding: 1rem;
 }
 
-.button{
+.button {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -54,15 +60,8 @@
   font-weight: bold;
 }
 
-.focus{
+.focus {
   border: var(--mainGreen) solid 3px;
   background-color: white;
   color: #000;
-}
-
-@media only screen and (min-width: 1200px) {
-  .header,
-  .footer{
-    width: 1000px;
-  }
 }

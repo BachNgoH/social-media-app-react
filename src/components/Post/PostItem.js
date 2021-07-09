@@ -85,7 +85,7 @@ const PostItem = (props) => {
 
   const avatar = props.username.substring(0, 1);
   return (
-    <Card>
+    <Card className={classes.card}>
       <div className={classes.header}>
         <div className={classes.logo}>{avatar}</div>
         <div className={classes.user}>{props.username}</div>

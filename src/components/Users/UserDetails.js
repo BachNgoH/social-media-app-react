@@ -21,7 +21,7 @@ const UserDetails = () => {
 
   const authCtx = useContext(AuthContext);
   const authToken = authCtx.token;
-  const fetchData = useCallback( async (url, method = "GET", body = null) => {
+  const fetchData = useCallback(async (url, method = "GET", body = null) => {
     const response = await fetch(url, {
       method: method,
       headers: {
@@ -42,23 +42,19 @@ const UserDetails = () => {
 
     //console.log("fetch success");
     return data;
-  },[]);
+  }, []);
 
   useEffect(async () => {
     //console.log(authCtx.userId);
     //console.log(authCtx.token);
 
     try {
-      const fetchUserData = await fetchData(
-        `${url}api/users/${userId}`
-      );
+      const fetchUserData = await fetchData(`${url}api/users/${userId}`);
 
       console.log(fetchUserData);
       setUserData(fetchUserData);
 
-      const fetchUserPosts = await fetchData(
-        `${url}api/posts/${userId}`
-      );
+      const fetchUserPosts = await fetchData(`${url}api/posts/${userId}`);
 
       const fetchUserConnection = await fetchData(
         `${url}api/friends/${userId}`
@@ -114,28 +110,31 @@ const UserDetails = () => {
     buttonData = "Requested";
   } else if (userConnection === "NO CONNECTION") {
     buttonData = "Add Friend";
-  } else if(userConnection === "SELF"){
-    buttonData = "Home Page"
+  } else if (userConnection === "SELF") {
+    buttonData = "Home Page";
   }
 
   const connectionHandler = () => {
     if (userConnection === "FRIEND") {
-      fetchData(
-        `${url}sendUnfriendRequest/${userId}`,
-        "POST"
-      );
+      try {
+        fetchData(`${url}api/friends/sendUnfriendRequest/${userId}`, "POST");
+      } catch (error) {
+        alert(error.message);
+      }
       setUserConnection("NO CONNECTION");
     } else if (userConnection === "REQUESTED") {
-      fetchData(
-        `${url}sendUnfriendRequest/${userId}`,
-        "POST"
-      );
+      try {
+        fetchData(`${url}api/friends/sendUnfriendRequest/${userId}`, "POST");
+      } catch (error) {
+        alert(error.message);
+      }
       setUserConnection("NO CONNECTION");
     } else if (userConnection === "NO CONNECTION") {
-      fetchData(
-        `${url}api/friends/sendFriendRequest/${userId}`,
-        "POST"
-      );
+      try {
+        fetchData(`${url}api/friends/sendFriendRequest/${userId}`, "POST");
+      } catch (error) {
+        alert(error.message);
+      }
       setUserConnection("REQUESTED");
     }
   };
@@ -157,14 +156,15 @@ const UserDetails = () => {
         </Card>
       </div>
       <h1 style={{ textAlign: "center" }}>All Posts</h1>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <ul className={classes.list}>{postItems}</ul>
-      </div>
+
+        
+        <div
+    
+          className={classes.body}
+        >
+          <ul className={classes.list}>{postItems}</ul>
+        </div>
+        
       {hasError && <h3>Something went wrong...</h3>}
     </Fragment>
   );

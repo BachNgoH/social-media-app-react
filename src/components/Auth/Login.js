@@ -3,7 +3,7 @@ import Button from "../UI/Button";
 import { useRef, useContext, useState } from "react";
 import AuthContext from "../../store/auth";
 import { useHistory } from "react-router";
-import url from '../../store/app-url'
+import url from "../../store/app-url";
 
 const Login = (props) => {
   const emailInputRef = useRef();
@@ -16,13 +16,11 @@ const Login = (props) => {
   const submitHandler = (event) => {
     event.preventDefault();
 
- 
-
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
 
     setIsLoading(true);
-    fetch(url+"api/v1/auth", {
+    fetch(url + "api/v1/auth", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -73,13 +71,15 @@ const Login = (props) => {
       <input type="password" id="password" required ref={passwordInputRef} />
       {!isLoading && (
         <div className={`${classes["btn-container"]} ${classes.login}`}>
-          <Button type="submit" className={classes.button}>Submit</Button>
+          <Button type="submit" className={classes.button}>
+            Submit
+          </Button>
           <Button onClick={props.switchHandler} className={classes.button}>
             Register
           </Button>
         </div>
       )}
-      {isLoading && <p>Sending Requset...</p>}
+      {isLoading && <p>Sending Request...</p>}
     </form>
   );
 };
